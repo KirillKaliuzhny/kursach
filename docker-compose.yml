@@ -1,0 +1,51 @@
+
+networks:
+  kiruxa:
+    name: kiruxa
+    driver: bridge
+
+services:
+  php:
+    build:
+      dockerfile: Dockerfile
+    container_name: ${PROJECT_NAME}_php
+    volumes:
+      - ./:/var/www/backend:delegated
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    networks:
+      - ${PROJECT_NAME}
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ${PROJECT_NAME}_db
+    restart: ${COMPOSE_RESTART_POLICY}
+    ports:
+      - '1433:1433'
+    environment:
+      - ACCEPT_EULA=1
+      - MSSQL_SA_PASSWORD=${DB_USER_PASSWORD}
+      - MSSQL_PID=${MSSQL_PID}
+      - TZ=${TIME_ZONE} 
+    networks:
+      - ${PROJECT_NAME}
+    # volumes:
+    #   - ./database:/var/opt/mssql
+  nginx:
+    image: nginx:latest
+    container_name: ${PROJECT_NAME}_nginx
+    environment:
+     - TZ=${TIME_ZONE}
+    restart: always
+    volumes:
+      - ./:/var/www/backend
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - ${PROJECT_NAME}
+# volumes:
+#   database:
