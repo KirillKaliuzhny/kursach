@@ -19,4 +19,13 @@ class AbstractModel extends Model
             return new static((array)$product);
         });
     }
+    public static function getTableColumns($table)
+    {
+        $sql = DB::select("
+            SELECT COLUMN_NAME
+            FROM INFORMATION_SCHEMA.COLUMNS
+            WHERE TABLE_NAME = '". $table ."'
+        ");
+        return array_column($sql, 'COLUMN_NAME');
+    }
 }

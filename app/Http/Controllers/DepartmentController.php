@@ -12,4 +12,8 @@ class DepartmentController extends Controller
     {
         return response()->json(Department::getAll('department', ['id','name']));
     }
+    public function getColumns()
+    {
+        return Department::getTableColumns('department');
+    }
 }

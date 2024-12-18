@@ -13,4 +13,8 @@ class WorkloadController extends Controller
         $data = Workload::getAll('workload', 'workload.id');
         return response()->json($data);
     }
+    public function getColumns()
+    {
+        return Workload::getTableColumns('workload');
+    }
 }

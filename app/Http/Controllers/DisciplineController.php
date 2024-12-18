@@ -12,4 +12,8 @@ class DisciplineController extends Controller
     {
         return response()->json(Discipline::getAll('discipline', ['id', 'name']));
     }
+    public function getColumns()
+    {
+        return Discipline::getTableColumns('discipline');
+    }
 }

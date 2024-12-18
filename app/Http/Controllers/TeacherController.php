@@ -12,4 +12,8 @@ class TeacherController extends Controller
     {
         return response()->json(Teacher::getAll('teacher', ['id','name', 'lastname', 'surname']));
     }
+    public function getColumns()
+    {
+        return Teacher::getTableColumns('teacher');
+    }
 }

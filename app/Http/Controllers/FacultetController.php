@@ -12,4 +12,8 @@ class FacultetController extends Controller
     {
         return response()->json(Facultet::getAll('facultet', ['id','name']));
     }
+    public function getColumns()
+    {
+        return Facultet::getTableColumns('facultet');
+    }
 }
