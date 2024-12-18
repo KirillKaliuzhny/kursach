@@ -29,4 +29,23 @@ class Workload extends AbstractModel
 
         return $sql->get();
     }
+    public static function getTableColumns($table) {
+        $data = parent::getTableColumns($table);
+        foreach ($data as &$columnData) {
+            if ($columnData->DROPDOWN == 1) {
+                $foreignTable = explode('_',$columnData->COLUMN_NAME)[0];
+                $select = ['id','name'];
+                if ($foreignTable === 'teacher') {
+                    $select[] = 'lastname';
+                    $select[] = 'surname';
+                }
+                $select = implode(',', $select);
+                $sql = DB::select("
+                    select ". $select ." from ".$foreignTable."
+                ");
+                $columnData->VALUES = $sql;
+            }
+        }
+        return $data;
+    }
 }

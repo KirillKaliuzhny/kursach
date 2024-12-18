@@ -22,10 +22,26 @@ class AbstractModel extends Model
     public static function getTableColumns($table)
     {
         $sql = DB::select("
-            SELECT COLUMN_NAME
-            FROM INFORMATION_SCHEMA.COLUMNS
-            WHERE TABLE_NAME = '". $table ."'
+            SELECT
+                c.COLUMN_NAME,
+                c.DATA_TYPE,
+                CASE
+                    WHEN kc.COLUMN_NAME IS NOT NULL THEN 1
+                    ELSE 0
+                END AS DROPDOWN
+            FROM
+                INFORMATION_SCHEMA.COLUMNS AS c
+            LEFT JOIN
+                INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS kc
+                ON c.TABLE_NAME = kc.TABLE_NAME AND c.COLUMN_NAME = kc.COLUMN_NAME
+                AND kc.CONSTRAINT_NAME IN (
+                    SELECT CONSTRAINT_NAME
+                    FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+                    WHERE CONSTRAINT_TYPE = 'FOREIGN KEY'
+                )
+            WHERE
+                c.TABLE_NAME = '".$table."';
         ");
-        return array_column($sql, 'COLUMN_NAME');
+        return collect($sql);
     }
 }
