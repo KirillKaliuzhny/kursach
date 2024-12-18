@@ -10,6 +10,6 @@ class FacultetController extends Controller
 {
     public function getAll()
     {
-        return response()->json(Facultet::getAll('facultet'));
+        return response()->json(Facultet::getAll('facultet', ['id','name']));
     }
 }
