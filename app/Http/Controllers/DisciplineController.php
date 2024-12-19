@@ -16,4 +16,10 @@ class DisciplineController extends Controller
     {
         return Discipline::getTableColumns('discipline');
     }
+    public function addData(Request $request)
+    {
+        $data = $request->all();
+        $model = new Discipline();
+        return $model->addData([], '', $data);
+    }
 }

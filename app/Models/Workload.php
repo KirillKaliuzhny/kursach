@@ -48,4 +48,13 @@ class Workload extends AbstractModel
         }
         return $data;
     }
+    public function addData(array $columns, string $table, array $values)
+    {
+        foreach ($values as $key => &$value) {
+            if (in_array($key, ['control_type'])) {
+                $value = "N'". $value ."'";
+            }
+        }
+        return parent::addData($this->fillable, $this->table, $values);
+    }
 }

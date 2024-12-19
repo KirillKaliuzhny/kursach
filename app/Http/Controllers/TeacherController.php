@@ -16,4 +16,10 @@ class TeacherController extends Controller
     {
         return Teacher::getTableColumns('teacher');
     }
+    public function addData(Request $request)
+    {
+        $data = $request->all();
+        $model = new Teacher();
+        return $model->addData([], '', $data);
+    }
 }

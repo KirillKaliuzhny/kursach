@@ -44,4 +44,14 @@ class AbstractModel extends Model
         ");
         return collect($sql);
     }
+
+    public function addData(array $columns, string $table, array $values)
+    {
+        unset($columns[0]);
+        $columns = implode(',', $columns);
+        $values = implode(',', array_values($values));
+        return DB::insert("
+            insert into ". $table ." ( ".$columns." ) values (".$values.")
+        ");
+    }
 }

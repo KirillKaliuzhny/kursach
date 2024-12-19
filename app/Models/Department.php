@@ -32,4 +32,13 @@ class Department extends AbstractModel
         }
         return $data;
     }
+    public function addData(array $columns, string $table, array $values)
+    {
+        foreach ($values as $key => &$value) {
+            if (!in_array($key, ['id', 'frame', 'teachers', 'facultet_id'])) {
+                $value = "N'". $value ."'";
+            }
+        }
+        return parent::addData($this->fillable, $this->table, $values);
+    }
 }

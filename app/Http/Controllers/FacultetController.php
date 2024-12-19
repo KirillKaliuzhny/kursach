@@ -16,4 +16,10 @@ class FacultetController extends Controller
     {
         return Facultet::getTableColumns('facultet');
     }
+    public function addData(Request $request)
+    {
+        $data = $request->all();
+        $model = new Facultet();
+        return $model->addData([], '', $data);
+    }
 }

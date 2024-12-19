@@ -19,4 +19,13 @@ class Facultet extends AbstractModel
 
     protected $table = 'facultet';
 
+    public function addData(array $columns, string $table, array $values)
+    {
+        foreach ($values as $key => &$value) {
+            if (!in_array($key, ['id', 'frame'])) {
+                $value = "N'". $value ."'";
+            }
+        }
+        return parent::addData($this->fillable, $this->table, $values);
+    }
 }

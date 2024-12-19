@@ -16,4 +16,10 @@ class DepartmentController extends Controller
     {
         return Department::getTableColumns('department');
     }
+    public function addData(Request $request)
+    {
+        $data = $request->all();
+        $model = new Department();
+        return $model->addData([], '', $data);
+    }
 }

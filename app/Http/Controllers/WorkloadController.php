@@ -17,4 +17,10 @@ class WorkloadController extends Controller
     {
         return Workload::getTableColumns('workload');
     }
+    public function addData(Request $request)
+    {
+        $data = $request->all();
+        $model = new Workload();
+        return $model->addData([], '', $data);
+    }
 }
