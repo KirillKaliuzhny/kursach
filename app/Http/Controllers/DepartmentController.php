@@ -37,4 +37,8 @@ class DepartmentController extends Controller
     {
         return Department::getDataByUpdate('department', $id);
     }
+    public function deleteData($id)
+    {
+        return Department::deleteData('department', $id);
+    }
 }

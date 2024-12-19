@@ -37,4 +37,8 @@ class FacultetController extends Controller
     {
         return Facultet::getDataByUpdate('facultet', $id);
     }
+    public function deleteData($id)
+    {
+        return Facultet::deleteData('facultet', $id);
+    }
 }

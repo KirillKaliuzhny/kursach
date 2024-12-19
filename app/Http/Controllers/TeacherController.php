@@ -37,4 +37,8 @@ class TeacherController extends Controller
     {
         return Teacher::getDataByUpdate('teacher', $id);
     }
+    public function deleteData($id)
+    {
+        return Teacher::deleteData('teacher', $id);
+    }
 }

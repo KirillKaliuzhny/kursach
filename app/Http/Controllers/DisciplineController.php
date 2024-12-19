@@ -37,4 +37,8 @@ class DisciplineController extends Controller
     {
         return Discipline::getDataByUpdate('discipline', $id);
     }
+    public function deleteData($id)
+    {
+        return Discipline::deleteData('discipline', $id);
+    }
 }

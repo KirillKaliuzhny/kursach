@@ -82,4 +82,10 @@ class AbstractModel extends Model
         }
         return $data;
     }
+    public static function deleteData(string $table, $id)
+    {
+        return DB::delete("
+            delete from ".$table."
+            where id = " . $id);
+    }
 }

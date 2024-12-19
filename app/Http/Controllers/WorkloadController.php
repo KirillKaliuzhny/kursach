@@ -38,4 +38,8 @@ class WorkloadController extends Controller
     {
         return Workload::getDataByUpdate('workload', $id);
     }
+    public function deleteData($id)
+    {
+        return Workload::deleteData('workload', $id);
+    }
 }
