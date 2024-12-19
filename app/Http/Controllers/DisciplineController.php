@@ -22,4 +22,19 @@ class DisciplineController extends Controller
         $model = new Discipline();
         return $model->addData([], '', $data);
     }
+    public function editData($id, Request $request)
+    {
+        $data = $request->all();
+        $model = new Discipline();
+        return $model->editData('', $data, $id);
+    }
+    public function getOne($id)
+    {
+        $model = new Discipline();
+        return $model->getDataById('discipline', $id);
+    }
+    public function getDataByUpdate($id)
+    {
+        return Discipline::getDataByUpdate('discipline', $id);
+    }
 }

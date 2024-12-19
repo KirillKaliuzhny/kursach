@@ -22,4 +22,19 @@ class DepartmentController extends Controller
         $model = new Department();
         return $model->addData([], '', $data);
     }
+    public function editData($id, Request $request)
+    {
+        $data = $request->all();
+        $model = new Department();
+        return $model->editData('', $data, $id);
+    }
+    public function getOne($id)
+    {
+        $model = new Department();
+        return $model->getDataById('department', $id);
+    }
+    public function getDataByUpdate($id)
+    {
+        return Department::getDataByUpdate('department', $id);
+    }
 }

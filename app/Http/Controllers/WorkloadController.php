@@ -23,4 +23,19 @@ class WorkloadController extends Controller
         $model = new Workload();
         return $model->addData([], '', $data);
     }
+    public function editData($id, Request $request)
+    {
+        $data = $request->all();
+        $model = new Workload();
+        return $model->editData('', $data, $id);
+    }
+    public function getOne($id)
+    {
+        $model = new Workload();
+        return $model->getDataById('workload', $id);
+    }
+    public function getDataByUpdate($id)
+    {
+        return Workload::getDataByUpdate('workload', $id);
+    }
 }

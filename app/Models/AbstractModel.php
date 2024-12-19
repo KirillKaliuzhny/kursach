@@ -54,4 +54,32 @@ class AbstractModel extends Model
             insert into ". $table ." ( ".$columns." ) values (".$values.")
         ");
     }
+    public function editData(string $table, array $update, $id)
+    {
+        $update = implode(',', $update);
+        return DB::update("
+            update ". $table ."
+            set ". $update ."
+            where id = ". $id ."
+        ");
+    }
+    public function getDataById(string $table, $id)
+    {
+        $sql = DB::select("
+            select * from ".$table."
+            where id = ". $id ."
+        ");
+        return ($sql);
+    }
+    public static function getDataByUpdate($table, $id) {
+        $data = self::getTableColumns($table);
+        $sql = DB::select("
+            select * from ".$table."
+            where id = ". $id);
+        $sql = $sql[0];
+        foreach ($data as &$columnData) {
+            $columnData->VALUE = $sql->{$columnData->COLUMN_NAME};
+        }
+        return $data;
+    }
 }

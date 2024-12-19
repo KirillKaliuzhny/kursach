@@ -28,4 +28,18 @@ class Facultet extends AbstractModel
         }
         return parent::addData($this->fillable, $this->table, $values);
     }
+    public function editData(string $table, array $update, $id)
+    {
+        $params = $this->fillable;
+        unset($params[0]);
+        $result = [];
+        foreach ($params as $value) {
+            if (!in_array($value, ['id', 'frame'])) {
+                $result[] = $value . "= N'".$update[$value]."'";
+            }else {
+                $result[] = $value . "= ".$update[$value];
+            }
+        }
+        return parent::editData($this->table, $result, $id);
+    }
 }
